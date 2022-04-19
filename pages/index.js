@@ -19,8 +19,15 @@ export default function Home(props) {
   );
 }
 export async function getStaticProps() {
+  const d = new Date();
+
+  const year = d.getFullYear();
+  const month = d.getMonth();
+  const day = d.getDate();
   const mainNews = await axios
-    .get("http://localhost:3000/api/news")
+    .get(
+      `https://newsapi.org/v2/everything?q=tesla&from=${year}-${month}-${day}&sortBy=publishedAt&apiKey=3ebfe18db721404dbfde22440f0f2d18`
+    )
     .then((res) => {
       return res.data.articles;
     })
