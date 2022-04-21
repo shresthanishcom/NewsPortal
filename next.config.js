@@ -12,23 +12,32 @@ async function fetchImageUrl() {
   const imageUrls = data.articles.map((news) => {
     return news.urlToImage;
   });
-  return imageUrls;
+  const businessNews = await fetch(
+    `https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=3ebfe18db721404dbfde22440f0f2d18`
+  );
+  const businessData = await businessNews.json();
+  const businessNewsUrl = businessData.articles.map((news) => {
+    return news.urlToImage;
+  });
+  const allUrls = imageUrls.concat(businessNewsUrl);
+  console.log("all urls:", allUrls.length);
+  return allUrls;
 }
 
 async function configuration() {
   const imagesUrls = await fetchImageUrl();
-  const urls = imagesUrls.map((urls) => {
-    if (urls?.search(/http:\/\//) === -1) {
+  console.log("images withoud slice are:", imagesUrls);
+  let urls = [];
+  imagesUrls.forEach((url) => {
+    if (url?.search(/http:\/\//) === -1) {
       //https is found
-      return urls?.slice(8, urls.indexOf("/", 8));
-    } else if (urls?.search(/https:\/\//) === -1) {
+      urls.push(url?.slice(8, url.indexOf("/", 8)));
+    } else if (url?.search(/https:\/\//) === -1) {
       //if http is found
-      return urls?.slice(7, urls.indexOf("/", 8));
-    } else {
-      return " ";
+      urls.push(url?.slice(7, url.indexOf("/", 8)));
     }
   });
-  console.log("image urls arer:", urls);
+  console.log("image urls arer:", urls.length);
   const nextConfig = {
     images: {
       domains: urls,

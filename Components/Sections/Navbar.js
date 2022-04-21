@@ -6,9 +6,9 @@ import styles from "../../styles/Sections/Navbar.module.scss";
 export default function Navbar() {
   return (
     <nav className="navbar navbar-expand-md navbar-light bg-light">
-      <a className="navbar-brand" href="#">
-        Taja khabar
-      </a>
+      <Link href="/">
+        <a className="navbar-brand">Taja khabar</a>
+      </Link>
       <button
         className="navbar-toggler"
         type="button"

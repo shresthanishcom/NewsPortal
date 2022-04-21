@@ -1,6 +1,6 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
-import Mainnews from "../Components/news/Mainnews";
+import ShowNews from "../Components/news/ShowNews";
 import axios from "axios";
 
 export default function Home(props) {
@@ -13,7 +13,7 @@ export default function Home(props) {
       </Head>
 
       <main className={styles.main}>
-        <Mainnews mainNews={props.mainNews} />
+        <ShowNews mainNews={props.mainNews} />
       </main>
     </div>
   );
