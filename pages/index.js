@@ -25,11 +25,9 @@ export async function getStaticProps() {
   const month = d.getMonth();
   const day = d.getDate();
   const mainNews = await axios
-    .get(
-      `https://newsapi.org/v2/everything?q=tesla&from=${year}-${month}-${day}&sortBy=publishedAt&apiKey=3ebfe18db721404dbfde22440f0f2d18`
-    )
+    .get(`https://newsapi.org/v2/everything?q=tesla&from=${year}-${month}-${day}&sortBy=publishedAt&apiKey=3ebfe18db721404dbfde22440f0f2d18`)
     .then((res) => {
-      return res.data.articles;
+      return res.data.articles.slice(0, 48);
     })
     .catch((err) => {
       console.log("error occured while fetching main news", err);

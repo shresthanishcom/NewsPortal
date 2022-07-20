@@ -5,16 +5,12 @@ async function fetchImageUrl() {
   const year = d.getFullYear();
   const month = d.getMonth();
   const day = d.getDate();
-  const response = await fetch(
-    `https://newsapi.org/v2/everything?q=tesla&from=${year}-${month}-${day}&sortBy=publishedAt&apiKey=3ebfe18db721404dbfde22440f0f2d18`
-  );
+  const response = await fetch(`https://newsapi.org/v2/everything?q=tesla&from=${year}-${month}-${day}&sortBy=publishedAt&apiKey=3ebfe18db721404dbfde22440f0f2d18`);
   const data = await response.json();
   const imageUrls = data.articles.map((news) => {
     return news.urlToImage;
   });
-  const businessNews = await fetch(
-    `https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=3ebfe18db721404dbfde22440f0f2d18`
-  );
+  const businessNews = await fetch(`https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=3ebfe18db721404dbfde22440f0f2d18`);
   const businessData = await businessNews.json();
   const businessNewsUrl = businessData.articles.map((news) => {
     return news.urlToImage;
@@ -26,7 +22,6 @@ async function fetchImageUrl() {
 
 async function configuration() {
   const imagesUrls = await fetchImageUrl();
-  console.log("images withoud slice are:", imagesUrls);
   let urls = [];
   imagesUrls.forEach((url) => {
     if (url?.search(/http:\/\//) === -1) {
@@ -37,6 +32,7 @@ async function configuration() {
       urls.push(url?.slice(7, url.indexOf("/", 8)));
     }
   });
+  urls.splice(49, imagesUrls.length);
   console.log("image urls arer:", urls.length);
   const nextConfig = {
     images: {
